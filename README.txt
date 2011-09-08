@@ -19,3 +19,12 @@ Install/Upgrade
 3. Create database or back it up if this is an upgrade.
 4. Edit lists/config/config.php
 5. Browse to /lists/admin/ and if this is an upgrade, use Upgrade link.
+
+Committing local changes
+
+0. git checkout $phpbranch
+1. diff -r ../../lists phplist-x.y.z/public_html/lists | grep '^diff ' |
+		sed -e 's/ -r / /' -e 's/^diff /cp /'
+2. git add .
+3. git commit -m 'More appropriate message'
+4. git push
