@@ -1,7 +1,7 @@
 <?php
 
 ### Site specific values provided here and triple-hashed out below
-include '../../gitspoke/sitelocal-phplist.php';
+include dirname(__FILE__) . '/../../gitspoke/sitelocal-phplist.php';
 
 /*
 
