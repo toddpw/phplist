@@ -331,7 +331,7 @@ define("ALLOW_NON_LIST_SUBSCRIBE",0);
 
 # define the amount of emails you want to send per period. If 0, batch processing
 # is disabled and messages are sent out as fast as possible
-define("MAILQUEUE_BATCH_SIZE",600);
+define("MAILQUEUE_BATCH_SIZE",0);
 
 # define the length of one batch processing period, in seconds (3600 is an hour)
 # Please note: this setting has two consequences:
