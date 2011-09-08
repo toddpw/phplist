@@ -14,7 +14,7 @@ To import a new version of PHPList:
 Install/Upgrade
 
 1. rsync -av phplist-x.y.z/public_html/lists ../..
-2. diff -r phplist-x.y.z/public_html/lists ../..
+2. diff -r phplist-x.y.z/public_html/lists ../../lists
   (fix or sign off on anything that shows up, like site-local .htaccess)
 3. Create database or back it up if this is an upgrade.
 4. Edit lists/config/config.php
