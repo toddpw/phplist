@@ -1,5 +1,6 @@
 To import a new version of PHPList:
 
+0. git checkout master
 1. rm -r phplist-x.y.z phplist-*.tgz
 2. wget <sourceforge direct tarball link>
 3. phpver=`basename phplist-*.tgz .tgz`; echo $phpver
