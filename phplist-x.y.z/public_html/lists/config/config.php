@@ -1,5 +1,8 @@
 <?php
 
+### Site specific values provided here and triple-hashed out below
+include dirname(__FILE__) . '/../../gitspoke/sitelocal-phplist.php';
+
 /*
 
 =========================================================================
@@ -19,16 +22,16 @@ General settings for language and database
 $language_module = "english.inc";
 
 # what is your Mysql database server
-$database_host = "localhost";
+###$database_host = "localhost";
 
 # what is the name of the database we are using
-$database_name = "phplistdb";
+###$database_name = "phplistdb";
 
 # who do we log in as?
-$database_user = "phplist";
+###$database_user = "phplist";
 
 # and what password do we use
-$database_password = 'phplist';
+###$database_password = 'phplist';
 
 # if you use multiple installations of PHPlist you can set this to
 # something to identify this one. it will be prepended to email report
@@ -47,8 +50,8 @@ $usertable_prefix = "phplist_user_";
 # you cannot actually change the "admin", but you can change the "lists"
 # DO NOT include the file eg "index.php" because that is added when required. If you do
 # it is likely to break the tracking, see http://mantis.phplist.com/view.php?id=15542
-$pageroot = '/lists';
-$adminpages = '/lists/admin';
+$pageroot = '';
+$adminpages = '/admin';
 
 /*
 
@@ -81,9 +84,9 @@ $bounce_protocol = 'pop';
 define ("MANUALLY_PROCESS_BOUNCES",1);
 
 # when the protocol is pop, specify these three
-$bounce_mailbox_host = 'localhost';
-$bounce_mailbox_user = 'popuser';
-$bounce_mailbox_password = 'password';
+###$bounce_mailbox_host = 'localhost';
+###$bounce_mailbox_user = 'popuser';
+###$bounce_mailbox_password = 'password';
 
 # the "port" is the remote port of the connection to retrieve the emails
 # the default should be fine but if it doesn't work, you can try the second
@@ -340,14 +343,14 @@ define("MAILQUEUE_BATCH_SIZE",0);
 # number 2 is when using browser queue processing. The browser will reload to send the next
 # batch after the amount of seconds set here
 
-define("MAILQUEUE_BATCH_PERIOD",100);
+define("MAILQUEUE_BATCH_PERIOD",3600);
 
 # to avoid overloading the server that sends your email, you can add a little delay
 # between messages that will spread the load of sending
 # you will need to find a good value for your own server
 # value is in seconds, and you can use fractions, eg "0.5" is half a second
 # (or you can play with the autothrottle below)
-define('MAILQUEUE_THROTTLE',0);
+define('MAILQUEUE_THROTTLE',5);
 
 # year ranges. If you use dates, by default the drop down for year will be from
 # three years before until 10 years after this the current value for year. If there
@@ -613,11 +616,11 @@ define("DEFAULT_MIMETYPE","application/octet-stream");
 # admin directory
 # this directory needs to be absolute, or relative to the admin directory
 
-define("PLUGIN_ROOTDIR","/home/me/phplistplugins");
+#define("PLUGIN_ROOTDIR","/home/me/phplistplugins");
 
 # uncomment this one to see the examples in the system (and then comment the
 # one above)
-#define("PLUGIN_ROOTDIR","plugins");
+define("PLUGIN_ROOTDIR","plugins");
 
 
 # the attachment repository is the place where the files are stored (if you use
