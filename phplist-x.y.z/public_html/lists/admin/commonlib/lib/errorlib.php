@@ -134,16 +134,13 @@ function sendError($msg, $email = "") {
   	$emailmsg .= $key .'->'.$val."\n";
   }
 
-  $config["mail_errors"] = $config["mail_errors"] ?$config["mail_errors"]:"webbler_errors@tincan.co.uk";
   if ($email) {
   	$destination = $email;
-  } elseif ($config["mail_errors"]) {
+  } elseif (!empty($config["mail_errors"])) {
   	$destination = $config["mail_errors"];
-  } else {
-  	$destination = 'sysadmin@tincan.co.uk';
-  }
+  } 
   #mail ($config["mail_errors"],$config["websiteurl"]." Webbler error",$emailmsg);
-  if (is_dir($config["code_root"] ."/../spool/mail")) {
+  if (!empty($destination) && is_dir($config["code_root"] ."/../spool/mail")) {
 	  $fname = tempnam($config["code_root"] ."/../spool/mail/","msg");
     dbg("Writing error to $fname");
   	$fp = @fopen($fname,"w");

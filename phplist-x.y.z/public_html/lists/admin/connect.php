@@ -11,7 +11,7 @@ if (is_file(dirname(__FILE__) . '/../../../VERSION')) {
 	$version = "dev";
 }
 
-define("VERSION","2.10.15");
+define("VERSION","2.10.17");
 
 include_once dirname(__FILE__) . "/commonlib/lib/userlib.php";
 include_once dirname(__FILE__) . "/pluginlib.php";
@@ -134,7 +134,7 @@ function SaveConfig($item, $value, $editable = 1, $ignore_errors = 0) {
 
   You can configure your PoweredBy options in your config file
 
-  Michiel Dethmers, Tincan Ltd 2001,2004,2011
+  Michiel Dethmers, phpList Ltd 2001,2004,2011
 */
 if (ereg("dev", VERSION))
 	$v = "dev";
@@ -242,7 +242,7 @@ function sendMessageStats($msgid) {
 		return;
 	}
 	if (!isset ($stats_collection_address)) {
-		$stats_collection_address = 'phplist-stats@tincan.co.uk';
+		$stats_collection_address = 'phplist-stats@phplist.com';
 	}
 	$data = Sql_Fetch_Array_Query(sprintf('select * from %s where id = %d', $tables["message"], $msgid));
 	$msg .= "phpList version " . VERSION . "\n";
@@ -266,7 +266,7 @@ function sendMessageStats($msgid) {
 			) as $item) {
 			$msg .= "\n" . $item . ' => ' . $data[$item];
 		}
-		if ($stats_collection_address == 'phplist-stats@tincan.co.uk' && $data["processed"] > 500) {
+		if ($stats_collection_address == 'phplist-stats@phplist.com' && $data["processed"] > 500) {
 			mail($stats_collection_address, "phpList stats", $msg);
 		} else {
 			mail($stats_collection_address, "phpList stats", $msg);
@@ -435,7 +435,7 @@ function newMenu() {
 			break;
 	}
 	if (TEST && REGISTER)
-		$pixel = '<img src="http://phplist.tincan.co.uk/images/pixel.gif" width=1 height=1>';
+		$pixel = '<img src="http://powered.phplist.com/images/pixel.gif" width=1 height=1>';
 	else
 		$pixel = "";
 	global $tables;
@@ -955,7 +955,7 @@ $newpoweredimage = 'iVBORw0KGgoAAAANSUhEUgAAAEYAAAAeCAMAAACmLZgsAAADAFBMVEXYx6fm
 function FileNotFound() {
 	ob_end_clean();
 	header("HTTP/1.0 404 File Not Found");
-	printf('<html><head><title>404 Not Found</title></head><body><h1>Not Found</h1>The requested document was not found on this server<br/>Please contact the <a href="mailto:%s?subject=File not Found: %s">Administrator</a><p><hr><address><a href="http://tincan.co.uk/phplist" target="_tincan">phplist</a> version %s</address></body></html>', getConfig("admin_address"), $_SERVER["REQUEST_URI"], VERSION);
+	printf('<html><head><title>404 Not Found</title></head><body><h1>Not Found</h1>The requested document was not found on this server<br/>Please contact the <a href="mailto:%s?subject=File not Found: %s">Administrator</a><p><hr><address><a href="http://phplist.com/" target="_phplist">phplist</a> version %s</address></body></html>', getConfig("admin_address"), $_SERVER["REQUEST_URI"], VERSION);
 	exit;
 }
 

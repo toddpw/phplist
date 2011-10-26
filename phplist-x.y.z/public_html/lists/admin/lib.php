@@ -358,7 +358,7 @@ function cleanEmail ($value) {
 }
 
 if (TEST && REGISTER)
-  $pixel = '<img src="http://phplist.tincan.co.uk/images/pixel.gif" width=1 height=1>';
+  $pixel = '<img src="http://powered.phplist.com/images/pixel.gif" width=1 height=1>';
 
 
 function timeDiff($time1,$time2) {
@@ -478,9 +478,10 @@ function logEvent($msg) {
   } else {
     $p = 'unknown page';
   }
+  $p = removeXss($p);
   if (Sql_Table_Exists($tables["eventlog"]))
   Sql_Query(sprintf('insert into %s (entered,page,entry) values(now(),"%s","%s")',$tables["eventlog"],
-    $p,addslashes($msg)));
+    sql_escape($p),htmlspecialchars(sql_escape($msg))));
 }
 
 ### process locking stuff

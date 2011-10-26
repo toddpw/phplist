@@ -132,7 +132,7 @@ $listsok = ((!ALLOW_NON_LIST_SUBSCRIBE && isset($_POST["list"]) && is_array($_PO
 if (isset($_POST["subscribe"]) && is_email($_POST["email"]) && $listsok && $allthere && $validhost) {
    $history_entry = '';
    # make sure to save the correct data
-   if ($subscribepagedata["htmlchoice"] == "checkfortext" && !$textemail) {
+   if ($subscribepagedata["htmlchoice"] == "checkfortext" && empty($_POST['textemail'])) {
       $htmlemail = 1;
    }
    else {
@@ -675,12 +675,12 @@ function ListAvailableLists($userid = 0,$lists_to_show = "") {
     if ($row["active"]) {
       $html .= '<li class="list"><input type="checkbox" name="list['.$row["id"] . ']" value=signup ';
       if (isset($list[$row["id"]]) && $list[$row['id']] == "signup")
-        $html .= "checked";
+        $html .= 'checked="checked"';
       if ($userid) {
         $req = Sql_Fetch_Row_Query(sprintf('select userid from %s where userid = %d and listid = %d',
           $GLOBALS["tables"]["listuser"],$userid,$row["id"]));
         if (Sql_Affected_Rows())
-          $html .= "checked";
+          $html .= 'checked="checked"';
       }
       $html .= " /><b>".stripslashes($row["name"]).'</b><div class="listdescription">';
       $desc = nl2br(StripSlashes($row["description"]));
@@ -802,29 +802,29 @@ $html .= sprintf('
     case "htmlonly":
       if (!isset($htmlemail))
         $htmlemail = 1;
-      $html .= sprintf('<input type=hidden name="htmlemail" value="1">');
+      $html .= sprintf('<input type="hidden" name="htmlemail" value="1">');
       break;
     case "checkfortext":
       if (!isset($htmlemail))
         $htmlemail = 0;
       $html .= sprintf('<tr><td colspan=2>
       <span class="attributeinput">
-      <input type=checkbox name="textemail" value="1" %s></span>
+      <input type="checkbox" name="textemail" value="1" %s></span>
       <span class="attributename">%s</span>
-      </td></tr>',!$htmlemail,$strPreferTextEmail);
+      </td></tr>',!$htmlemail ? 'checked="checked"':"",$strPreferTextEmail);
       break;
     case "radiotext":
       if (!isset($htmlemail))
         $htmlemail = 0;
       $html .= sprintf('<tr><td colspan=2>
         <span class="attributename">%s<br/>
-        <span class="attributeinput"><input type=radio name="htmlemail" value="0" %s /></span>
+        <span class="attributeinput"><input type="radio" name="htmlemail" value="0" %s /></span>
         <span class="attributename">%s</span>
-        <span class="attributeinput"><input type=radio name="htmlemail" value="1" %s /></span>
+        <span class="attributeinput"><input type="radio" name="htmlemail" value="1" %s /></span>
         <span class="attributename">%s</span></td></tr>',
         $strPreferredFormat,
-        !$htmlemail ? "checked":"",$strText,
-        $htmlemail ? "checked":"",$strHTML);
+        !$htmlemail ? 'checked="checked"':"",$strText,
+        $htmlemail ? 'checked="checked"':"",$strHTML);
       break;
     case "radiohtml":
       if (!isset($htmlemail))
@@ -836,8 +836,8 @@ $html .= sprintf('
         <span class="attributeinput"><input type=radio name="htmlemail" value="1" %s /></span>
         <span class="attributename">%s</span></td></tr>',
         $strPreferredFormat,
-        !$htmlemail ? "checked":"",$strText,
-        $htmlemail ? "checked":"",$strHTML);
+        !$htmlemail ? 'checked="checked"':"",$strText,
+        $htmlemail ? 'checked="checked"':"",$strHTML);
       break;
     case "checkforhtml":
     default:
@@ -845,7 +845,7 @@ $html .= sprintf('
         $htmlemail = 0;
       $html .= sprintf('<tr><td colspan=2>
         <span class="attributeinput"><input type=checkbox name="htmlemail" value="1" %s /></span>
-        <span class="attributename">%s</span></td></tr>',$htmlemail ? "checked":"",$strPreferHTMLEmail);
+        <span class="attributename">%s</span></td></tr>',$htmlemail ? 'checked="checked"':"",$strPreferHTMLEmail);
       break;
   }
   $html .= "\n";
@@ -876,9 +876,9 @@ $html .= sprintf('
           $output[$attr["id"]] = '<tr><td colspan=2>';
           # what they post takes precedence over the database information
           if ($_POST[$fieldname])
-            $checked = $_POST[$fieldname] ? "checked":"";
+            $checked = $_POST[$fieldname] ? 'checked="checked"':"";
           else
-            $checked = $data[$attr["id"]] ? "checked":"";
+            $checked = $data[$attr["id"]] ? 'checked="checked"':"";
           $output[$attr["id"]] .= sprintf("\n".'<input type="checkbox" name="%s" value="on" %s class="attributeinput">',$fieldname,$checked);
           $output[$attr["id"]] .= sprintf("\n".'<span class="%s">%s</span>',$attr["required"] ? 'required' : 'attributename',stripslashes($attr["name"]));
           if ($attr["required"])
@@ -889,11 +889,11 @@ $html .= sprintf('
           $values_request = Sql_Query("select * from $table_prefix"."listattr_".$attr["tablename"]." order by listorder,name");
           while ($value = Sql_Fetch_array($values_request)) {
             if (!empty($_POST[$fieldname]))
-              $checked = $_POST[$fieldname] == $value["id"] ? "checked":"";
+              $checked = $_POST[$fieldname] == $value["id"] ? 'checked="checked"':"";
             else if ($data[$attr["id"]])
-              $checked = $data[$attr["id"]] == $value["id"] ? "checked":"";
+              $checked = $data[$attr["id"]] == $value["id"] ? 'checked="checked"':"";
             else
-              $checked = $attr["default_value"] == $value["name"] ? "checked":"";
+              $checked = $attr["default_value"] == $value["name"] ? 'checked="checked"':"";
             $output[$attr["id"]] .= sprintf('&nbsp;%s&nbsp;<input type=radio  class="attributeinput" name="%s" value="%s" %s>',
               $value["name"],$fieldname,$value["id"],$checked);
           }
@@ -924,10 +924,10 @@ $html .= sprintf('
           $output[$attr["id"]] .= sprintf('</td></tr>');
           while ($value = Sql_Fetch_array($values_request)) {
             if (is_array($_POST[$fieldname]))
-              $selected = in_array($value["id"],$_POST[$fieldname]) ? "checked" : "";
+              $selected = in_array($value["id"],$_POST[$fieldname]) ? 'checked="checked"' : "";
             else if ($data[$attr["id"]]) {
               $selection = explode(",",$data[$attr["id"]]);
-              $selected = in_array($value["id"],$selection) ? "checked":"";
+              $selected = in_array($value["id"],$selection) ? 'checked="checked"':"";
             }
             else{
                $selection = Array();
@@ -1033,7 +1033,7 @@ function RSSOptions($data,$userid = 0) {
   foreach ($options as $freq) {
     if ($freq) {
       $html .= sprintf('<input type=radio name="rssfrequency" value="%s" %s>&nbsp;%s&nbsp;',
-        $freq,$freq == $default ? "checked":"",$rssfrequencies[$freq]);
+        $freq,$freq == $default ? 'checked="checked"':"",$rssfrequencies[$freq]);
     }
   }
   $html .= '</td></tr></table>';

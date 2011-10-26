@@ -65,7 +65,7 @@ $findby = '';
 $system_findby = array("email","foreignkey");
 if ($findby && $find && !in_array($findby,$system_findby) ) {
   $find_url = '&find='.urlencode($find)."&findby=".urlencode($findby);
-  $findatt = Sql_Fetch_Array_Query("select id,tablename,type,name from {$tables["attribute"]} where id = $findby");
+  $findatt = Sql_Fetch_Array_Query(sprintf('select id,tablename,type,name from %s where id = %d',$tables["attribute"],$findby));
   switch ($findatt["type"]) {
     case "textline":
     case "hidden":
@@ -102,7 +102,7 @@ if ($findby && $find && !in_array($findby,$system_findby) ) {
   }
 } else {
   $findtables = '';
-  $findbyselect = sprintf(' %s like "%%%s%%"',$findby,$find);;
+  $findbyselect = sprintf(' %s like "%%%s%%"',$findby,$find);
   $findfield = $tables["user"].".bouncecount,".$tables["user"].".rssfrequency,".$tables["user"].".foreignkey";
   $findfieldname = "Email";
   $find_url = '&find='.urlencode($find);

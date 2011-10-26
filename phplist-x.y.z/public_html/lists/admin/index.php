@@ -357,7 +357,7 @@ if (checkAccess($page,"") || $page == 'about') {
 
     if (!$parses_ok) {
       print Error("cannot parse $include");
-      print '<p>Sorry, an error occurred. This is a bug. Please <a href="http://mantis.tincan.co.uk">report the bug to the Bug Tracker</a><br/>Sorry for the inconvenience</a></p>';
+      print '<p>Sorry, an error occurred. This is a bug. Please <a href="http://mantis.phplist.com">report the bug to the Bug Tracker</a><br/>Sorry for the inconvenience</a></p>';
     } else {
       if (isset($GLOBALS['developer_email'])) {
         include $include;

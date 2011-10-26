@@ -140,7 +140,6 @@ function sendEmail ($messageid,$email,$hash,$htmlpref = 0,$rssitems = array(),$f
   $text["subscribe"] = sprintf('%s',$url);
   $html["subscribeurl"] = sprintf('%s',$url);
   $text["subscribeurl"] = sprintf('%s',$url);
-  #?mid=1&id=1&uid=a9f35f130593a3d6b89cfe5cfb32a0d8&p=forward&email=michiel%40tincan.co.uk&
   $url = getConfig("forwardurl");$sep = ereg('\?',$url)?'&':'?';
   $html["forward"] = sprintf('<a href="%s%suid=%s&mid=%d">%s</a>',$url,$sep,$hash,$messageid,$strThisLink);
   $text["forward"] = sprintf('%s%suid=%s&mid=%d',$url,$sep,$hash,$messageid);
@@ -164,7 +163,7 @@ function sendEmail ($messageid,$email,$hash,$htmlpref = 0,$rssitems = array(),$f
   You can configure how the credits are added to your pages and emails in your
   config file.
 
-  Michiel Dethmers, Tincan Ltd 2003, 2004, 2005, 2006
+  Michiel Dethmers, phpList Ltd 2003, 2004, 2005, 2006
 */
   if (!EMAILTEXTCREDITS) {
     $html["signature"] = $PoweredByImage;#'<div align="center" id="signature"><a href="http://www.phplist.com"><img src="powerphplist.png" width=88 height=31 title="Powered by PHPlist" alt="Powered by PHPlist" border="0"></a></div>';
@@ -477,7 +476,7 @@ if (0) {
 #    preg_match_all('!(https?:\/\/www\.[a-zA-Z0-9\.\/#~\?+=&%@-_]+)!mis',$textmessage,$links);
 
     for($i=0; $i<count($links[1]); $i++){
-      # not entirely sure why strtolower was used, but it seems to break things http://mantis.tincan.co.uk/view.php?id=4406
+      # not entirely sure why strtolower was used, but it seems to break things http://mantis.phplist.com/view.php?id=4406
 #      $link = strtolower(cleanUrl($links[1][$i]));
       $link = cleanUrl($links[1][$i]);
       if (preg_match('/\.$/',$link)) {

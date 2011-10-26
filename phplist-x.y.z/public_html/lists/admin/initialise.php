@@ -75,12 +75,12 @@ if ($success) {
   $body = '
     Version: '.VERSION."\r\n".
    ' Url: '.getConfig("website").$pageroot."\r\n";
-  printf('<p>'.$GLOBALS['I18N']->get('Success').': <a href="mailto:phplist2@tincan.co.uk?subject=Successful installation of phplist&body=%s">'.$GLOBALS['I18N']->get('Tell us about it').'</a>. </p>', $body);
+  printf('<p>'.$GLOBALS['I18N']->get('Success').': <a href="mailto:info@phplist.com?subject=Successful installation of phplist&body=%s">'.$GLOBALS['I18N']->get('Tell us about it').'</a>. </p>', $body);
   printf('<p>
     '.$GLOBALS['I18N']->get("Please make sure to read the file README.security that can be found in the zip file.").'</p>');
   printf('<p>
     '.$GLOBALS['I18N']->get("Please make sure to").'
-    <a href="http://tincan.co.uk/lists/?p=subscribe"> '.$GLOBALS['I18N']->get("subscribe to the announcements list")."</a> ".
+    <a href="http://announce.hosted.phplist.com/lists/?p=subscribe"> '.$GLOBALS['I18N']->get("subscribe to the announcements list")."</a> ".
     $GLOBALS['I18N']->get("to make sure you are updated when new versions come out. Sometimes security bugs are found which make it important to upgrade. Traffic on the list is very low.").' </p>');
   print "<p>".$GLOBALS['I18N']->get("Continue with")." ".PageLink2("setup",$GLOBALS['I18N']->get("PHPlist Setup"))."</p>";
 } else {

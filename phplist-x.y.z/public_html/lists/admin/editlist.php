@@ -27,6 +27,9 @@ if ($GLOBALS["require_login"] && !isSuperUser()) {
           return;
         }
       }
+      ## if the admin doesn't have full permissions, we don't allow HTML in the description
+      if (isset($_POST["description"])) $_POST["description"] = strip_tags($_POST["description"]);
+      
       break;
     case "all":
       $subselect = ""; 
@@ -39,6 +42,8 @@ if ($GLOBALS["require_login"] && !isSuperUser()) {
         Fatal_Error($GLOBALS['I18N']->get('You do not have enough priviliges to view this page'));
         return;
       }
+      ## if the admin doesn't have full permissions, we don't allow HTML in the description
+      if (isset($_POST["description"])) $_POST["description"] = strip_tags($_POST["description"]);
       $subselect = " where id = 0";
       break;
   }
@@ -60,14 +65,14 @@ if (isset($_POST["save"]) && isset($_POST["listname"]) && $_POST["listname"]) {
     $query = sprintf('update %s set name="%s",description="%s",
     active=%d,listorder=%d,prefix = "%s", owner = %d, rssfeed = "%s"
     where id=%d %s',$tables["list"],addslashes($_POST["listname"]),
-    addslashes($_POST["description"]),$_POST["active"],$_POST["listorder"],
-    $_POST["prefix"],$_POST["owner"],$_POST["rssfeed"],$id,$subselect_and);
+    sql_escape($_POST["description"]),$_POST["active"],$_POST["listorder"],
+    sql_escape($_POST["prefix"]),sql_escape($_POST["owner"]),sql_escape($_POST["rssfeed"]),$id,$subselect_and);
   } else {
     $query = sprintf('insert into %s
       (name,description,entered,listorder,owner,prefix,rssfeed,active)
       values("%s","%s",now(),%d,%d,"%s","%s",%d)',
-      $tables["list"],addslashes($_POST["listname"]),addslashes($_POST["description"]),
-      $_POST["listorder"],$_POST["owner"],$_POST["prefix"],$_POST["rssfeed"],$_POST["active"]);
+      $tables["list"],sql_escape($_POST["listname"]),sql_escape($_POST["description"]),
+      $_POST["listorder"],sql_escape($_POST["owner"]),sql_escape($_POST["prefix"]),sql_escape($_POST["rssfeed"]),$_POST["active"]);
   }
 #  print $query;
   $result = Sql_Query($query);
@@ -126,7 +131,7 @@ if (ENABLE_RSS) {
 
 ?>
 <tr><td colspan=2><?php echo $GLOBALS['I18N']->get('List Description'); ?></td></tr>
-<tr><td colspan=2><textarea name="description" cols="55" rows="15"><?php echo htmlspecialchars(StripSlashes($list["description"])) ?></textarea></td></tr>
+<tr><td colspan=2><textarea name="description" cols="55" rows="15"><?php echo htmlspecialchars(stripslashes($list["description"])) ?></textarea></td></tr>
 <tr><td align="center"><input type="submit" name="save" value="<?php echo $GLOBALS['I18N']->get('Save'); ?>"></td><td align="right"><input type="reset"></td></tr>
 </table>
 </form>

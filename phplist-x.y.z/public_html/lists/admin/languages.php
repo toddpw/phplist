@@ -91,7 +91,6 @@ if (!isset($_SESSION['adminlanguage']) || !is_array($_SESSION['adminlanguage']))
 
 ## this interferes with the frontend if an admin is logged in. 
 ## better split the frontend and backend charSets at some point
-##http://mantis.tincan.co.uk/view.php?id=5528
 #if (!isset($GLOBALS['strCharSet'])) {
   $GLOBALS['strCharSet'] = $_SESSION['adminlanguage']['charset'];
 #

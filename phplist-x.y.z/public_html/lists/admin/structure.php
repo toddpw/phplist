@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__).'/accesscheck.php';
 
-define("STRUCTUREVERSION","2.10.15");
+define("STRUCTUREVERSION","2.10.17");
 
 $DBstruct = array( # order of tables is essential for smooth upgrade
     "attribute" => array ( # attributes of a user or a message
